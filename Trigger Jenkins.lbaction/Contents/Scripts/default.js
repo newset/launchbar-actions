@@ -80,13 +80,15 @@ function showEnv({ job, branch }) {
 
 function trigger(arguments) {
     const { job, branch, BuildEnv } = arguments;
-    LaunchBar.alert(JSON.stringify(arguments))
-    const url = `/job/${job}/buildWithParameters?branch=${branch}&BuildEnv=${BuildEnv}`
 
-    request('post', url);
+    const api = `/job/${job}/buildWithParameters?branch=${branch}&BuildEnv=${BuildEnv}`
+    const url = `${host}/job/${job}`;
+    request('post', api);
     LaunchBar.displayNotification({
         title: '构建开始',
         string: `构建 ${job} 已开始`,
         url: `${host}/job/${job}`
     });
+
+    LaunchBar.openUrl(url);
 }
